@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h5>Blogs Posted By Created</h5>
+
+<ul>
+{% for blog in blogs %}
+    <li>
+        <h2>{{ blog.title }}</h2>
+        <h6>{{ blog.created }}</h6>
+        <P>{{ blog.context }}</p>
+    </li>
+{% endfor %}
+<ul>
+
+
+<!-- <form method="post">
+    <label>title
+           <input type="text" name="title">
+    </label>
+    <br>
+    <br>
+    <br>
+    <label>context<br>
+           <textarea name="context"></textarea>
+    </label>
+    <input type="submit">
+</form> -->
+
+
+{% endblock %}
