@@ -2,9 +2,9 @@
 
 {% block content %}
 <h2>{{blog.title}}</h2>
-
+<h6>{{ blog.created }}</h6>
 <article>
-    {{blog.context}}
+    {{blog.context | safe}}
 </article>
 
 {% endblock %}

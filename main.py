@@ -45,10 +45,18 @@ class NewPost(webapp2.RequestHandler):
     def post(self):
         blogtitle = self.request.get("blog_title")
         blogcontext = self.request.get("blog_context")
-        if blogtitle and blogcontext :
-            blog = Blogs(title = blogtitle, context = blogcontext)
+        blogreplacecontext = blogcontext.replace('\n', '<br>')
+        if blogtitle and blogreplacecontext :
+            blog = Blogs(title = blogtitle, context = blogreplacecontext)
             blog.put()
-            self.redirect("/")
+            # blogkey = blog.key().id()
+            # blogcompare = Blogs.get_by_id(int(blogkey))
+            # if not (blogtitle == blogcompare):
+            #     error = "404"
+            #     return
+
+            # self.redirect("/blogs/{}".format(blogkey))
+            self.redirect("/blogs/{}".format(blog.key().id()))
         else:
             error = "We need both a title and a body!"
             t = jinja_env.get_template("newpost.html")
@@ -58,10 +66,10 @@ class NewPost(webapp2.RequestHandler):
 
 class BlogDetail(webapp2.RequestHandler):
     def get(self, blog_id):
-        blog = blogs.get_by_id(blog_id)
+        blog = Blogs.get_by_id(int(blog_id))
         if not blog:
             self.renderError(404)
-        t = jinja_env.get_template("blog_detail.html")
+        t = jinja_env.get_template("blogdetail.html")
         content = t.render(blog=blog)
 
         self.response.write(content)
