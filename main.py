@@ -30,9 +30,10 @@ class Blogs(db.Model):
     last_modified = db.DateTimeProperty(auto_now = True)
 
 class MainHandler(webapp2.RequestHandler):
-    def get(self):
+    def get(self, startpiont="0"):
 
-        fiveposts = db.GqlQuery("SELECT * FROM Blogs ORDER BY created DESC LIMIT 5")
+        fiveposts = db.GqlQuery("SELECT * FROM Blogs ORDER BY created DESC LIMIT 5 OFFSET 0")
+        # fiveposts = db.GqlQuery("SELECT * FROM Blogs ORDER BY created DESC LIMIT 5 OFFSET {}").format(int(startpiont))
         t = jinja_env.get_template("front.html")
         content = t.render(blogs = fiveposts, error = self.request.get("error"))
         self.response.write(content)
@@ -73,6 +74,9 @@ class BlogDetail(webapp2.RequestHandler):
         content = t.render(blog=blog)
 
         self.response.write(content)
+
+def get_posts(limit, offset):
+    pass
 
 
 app = webapp2.WSGIApplication([
