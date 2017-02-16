@@ -6,9 +6,9 @@
 <ul>
 {% for blog in blogs %}
     <li>
-        <h2><a href=/blogs/{{ blog.key().id() }}>{{ blog.title }}</a></h2>
-        <h6>{{ blog.created }}</h6>
-        <P>{{ blog.context | safe}}</p>
+        <h2><a href=/blogs/{{ blog.key().id() }} class="main-title">{{ blog.title }}</a></h2>
+        <h6 class="post-date">{{ blog.created }}</h6>
+        <P class="post-context">{{ blog.context | safe}}</p>
     </li>
 {% endfor %}
 <ul>
