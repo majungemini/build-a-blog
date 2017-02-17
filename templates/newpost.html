@@ -4,13 +4,13 @@
 
 <form method="post">
     <label>Title
-           <input type="text" name="blog_title">
+           <input type="text" name="blog_title" value="{{ title }}">
     </label>
     <br>
     <br>
     <br>
     <label>Context<br>
-           <textarea name="blog_context"></textarea>
+           <textarea name="blog_context" >{{ context }}</textarea>
     </label>
     <input type="submit">
 </form>

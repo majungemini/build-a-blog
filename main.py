@@ -61,7 +61,9 @@ class NewPost(webapp2.RequestHandler):
         else:
             error = "We need both a title and a body!"
             t = jinja_env.get_template("newpost.html")
-            content = t.render(error = error)
+            content = t.render(error = error,
+                                title = blogtitle,
+                                context = blogcontext)
             self.response.write(content)
 
 
@@ -69,14 +71,21 @@ class BlogDetail(webapp2.RequestHandler):
     def get(self, blog_id):
         blog = Blogs.get_by_id(int(blog_id))
         if not blog:
-            self.renderError(404)
-        t = jinja_env.get_template("blogdetail.html")
-        content = t.render(blog=blog)
+            # self.renderError(404)
+            error=blog_id
+            t = jinja_env.get_template("error.html")
+            content = t.render(error=error)
+            self.response.write(content)
+        else:
 
-        self.response.write(content)
+            t = jinja_env.get_template("blogdetail.html")
+            content = t.render(blog=blog)
+            self.response.write(content)
+
 
 def get_posts(limit, offset):
     pass
+
 
 
 app = webapp2.WSGIApplication([
